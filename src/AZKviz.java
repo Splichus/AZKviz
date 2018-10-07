@@ -17,17 +17,24 @@ public class AZKviz {
     public static void mainDraw(Graphics graphics) {
 
         drawBoard(graphics, BLUEHEXES, YELLOWHEXES);
+        // TODO improve printing for resizing
+        // TODO Print all output on the screen, not in command line
 
 
     }
-
+    // Compares the answer given by user with the correct answers, if co, adds
     public static boolean rightAnswer(int questionNumber) {
+        // TODO Store database in separate file
+        // TODO Create methods for working with database in separate file
+        // TODO Add number of questions
+        // TODO randomize questions for numbers
+
         Scanner scan = new Scanner(System.in);
         ArrayList<String> questions = new ArrayList<>();
         questions.add("What is the fastest animal in the world?");
         questions.add("What is the current JAVA version");
         questions.add("Which fictional city is the home of Batman?");
-        questions.add("Spinach is high in which mineral?");
+        questions.add("Spinach was falsely know for high content of which mineral?");
         questions.add("Who was known as the Maid of Orleans?");
         questions.add("In the film Babe, what type of animal was Babe?");
         questions.add("What was Mohammed Ali’s birth name?");
@@ -48,7 +55,7 @@ public class AZKviz {
         questions.add("What is another word for lexicon?");
         questions.add("What is the world's longest river?");
         questions.add("Who played Neo in The Matrix?");
-        questions.add("What colour is dress, worn by currently leading man in cycling?");
+        questions.add("What colour is dress, worn by a leading cyclist during races?");
         questions.add("What does NFL stands for?");
         questions.add("Exact date of the velvet revolution?");
         questions.add("Who sings the song Like a Virgin?");
@@ -91,6 +98,9 @@ public class AZKviz {
 
 
         System.out.println(questions.get(questionNumber - 1));
+        System.out.println();
+        System.out.println(showFirstLetters(answers.get(questionNumber - 1)));
+        System.out.println();
         String answer = scan.nextLine();
         if (answer.equals(answers.get(questionNumber-1))) {
             return true;
@@ -98,7 +108,18 @@ public class AZKviz {
             return false;
         }
     }
-
+    //Returns the first letters of every answer
+    public static String showFirstLetters (String string) {
+        String toReturn = String.valueOf(string.charAt(0));
+        for (int i = 0; i < string.length(); i++) {
+            if (string.charAt(i) == ' ') {
+                toReturn+=String.valueOf(string.charAt(i+1));
+            }
+        }
+        return toReturn;
+    }
+    // main drawing function, prints the board of hexagons, count what is the current hexagon and if that equals blue or
+    // yellow prints respective coloured hexagon instead of the blank one.
     public static void drawBoard(Graphics graphics, ArrayList<Integer> blueHexes, ArrayList<Integer> yellowHexes) {
         int startX = WIDTH / 2;
         int startY = 50;
@@ -114,7 +135,7 @@ public class AZKviz {
                     fillHexagon(graphics, (int) (startX + (2*j*L)), startY);
                 } else {
                     graphics.setColor(Color.BLACK);
-                    drawHexagon(graphics, (int) (startX + (2 * j * L)), startY, 2);
+                    drawHexagon(graphics, (int) (startX + (2 * j * L)), startY, 1);
                     graphics.drawString(Integer.toString(sum), (int) (startX + (2 * j * L) - 5), startY + A + 5);
                 }
             }
@@ -122,7 +143,7 @@ public class AZKviz {
             startY += (int) (1.5 * A);
         }
     }
-
+    // basic function for printing blank hexagons
     public static void drawHexagon(Graphics graphics, int startX, int startY, int boarder) {
         for (int i = 0; i < boarder; i++) {
             int[] x = {startX, (int) (startX - L) + i, (int) (startX - L) + i, startX, (int) (startX + L) - i, (int) (startX + L) - i};
@@ -130,6 +151,7 @@ public class AZKviz {
             graphics.drawPolygon(x, y, 6);
         }
     }
+    // basic function for printing coloured hexagons
     public static void fillHexagon(Graphics graphics, int startX, int startY) {
         int[] x = {startX, (int) (startX - L), (int) (startX - L), startX, (int) (startX + L), (int) (startX + L)};
         int[] y = {startY, (int) (startY + 0.5 * A), (int) (startY + 1.5 * A), (int) (startY + 2 * A), (int) (startY + 1.5 * A), (int) (startY + 0.5 * A)};
@@ -139,7 +161,7 @@ public class AZKviz {
 
     }
 
-    // Don't touch the code below
+    // Don't touch the code below - I TOUCHED THE CODE!
     static int WIDTH = 500;
     static int HEIGHT = 500;
 
@@ -154,6 +176,9 @@ public class AZKviz {
         jFrame.setVisible(true);
         jFrame.pack();
 
+        // TODO create a counter from 30-0 and after that the turn is over
+        // TODO make the counter Graphical not numbers
+        // TODO CREATE WIN CONDITION!!
         System.out.println("Player one please enter your name: ");
         String player1 = scan.nextLine();
         System.out.println("Player two please enter your name: ");
